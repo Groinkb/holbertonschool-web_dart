@@ -1,9 +1,12 @@
-class Car {
-  // field
-  String engine = "E1001";
+// create an user class
 
-  // function
-  void disp() {
-    print(engine);
+class User {
+  //field
+  String name = "";
+
+  //function
+
+  String showName() {
+    return "Hello $name";
   }
 }
