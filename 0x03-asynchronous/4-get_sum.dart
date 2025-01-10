@@ -1,35 +1,36 @@
-import 'dart:convert';
-import '4-util.dart'; // Import the utility file with the provided functions
+import "4-util.dart";
+import "dart:convert";
 
+/// Calculates the total price of all the products in the user's order.
+///
+/// This function first calls `fetchUserData` to get the user's id. It then
+/// calls `fetchUserOrders` with the user's id to get the list of products they
+/// have ordered. It then calls `fetchProductPrice` for each product to get the
+/// price of that product. The total price is then the sum of the prices of all
+/// products.
+///
+/// If any error occurs during this process, -1 is returned.
 Future<double> calculateTotal() async {
   try {
-    // Step 1: Get the user's data (user ID)
-    String userData = await fetchUserData();
-    String userId = json.decode(userData)["id"];
-
-    // Step 2: Get the user's orders (list of products)
-    String ordersData = await fetchUserOrders(userId);
-    List<String> products = List<String>.from(json.decode(ordersData));
-
-    // Step 3: Get the price of each product
-    double totalPrice = 0.0;
-    for (String product in products) {
-      String priceData = await fetchProductPrice(product);
-      double price = json.decode(priceData);
-      totalPrice += price;
-    }
-
-    // Step 4: Return the total price
-    return totalPrice;
+    // Call fetchUserData
+    return fetchUserData().then((user) {
+      // Convert string response to json
+      String id = json.decode(user)["id"];
+      // Asynchronously call fetchUserOrders with id of user from fetchUserData
+      return fetchUserOrders(id).then((products) async {
+        double totalPrice = 0.0;
+        // Convert string response to json and loop through product list
+        for (String product in json.decode(products)) {
+          // As each product is fetched, call fetchProductPrice with product
+          await fetchProductPrice(product).then((price) {
+            // Convert string response to json and add price to total
+            totalPrice += json.decode(price);
+          });
+        }
+        return totalPrice;
+      });
+    });
   } catch (e) {
-    // In case of any error, return -1
-    print('Error: $e');
     return -1;
   }
-}
-
-void main() async {
-  // Example usage of calculateTotal()
-  double total = await calculateTotal();
-  print(total);
 }
