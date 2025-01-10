@@ -3,7 +3,7 @@ import 'dart:convert';
 
 Future<String> greetUser() async {
   try {
-    var data = json.decode(await fetchUserData());
+    var data = json.decode(await fetchUserData()); //résultat chaine hello "username"
     return "Hello ${data['username']}";
   } catch (e) {
     print('error caught: $e');
