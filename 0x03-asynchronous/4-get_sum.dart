@@ -14,7 +14,7 @@ Future<double> calculateTotal() async {
   try {
     // Call fetchUserData
     return fetchUserData().then((user) {
-      // Convert string response to json
+      // Convert string response to json statam 
       String id = json.decode(user)["id"];
       // Asynchronously call fetchUserOrders with id of user from fetchUserData
       return fetchUserOrders(id).then((products) async {
