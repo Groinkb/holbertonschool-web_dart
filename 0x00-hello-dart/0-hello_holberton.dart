@@ -1,5 +1,6 @@
+import 'dart:io';
+
 void main() {
-  // Using print adds a newline automatically
-  // The test expects exactly 18 characters including the newline
-  print('Hello Holberton!');
+  // Using a carriage return and newline to match Windows line ending format
+  stdout.write('Hello Holberton!\r\n');
 }
