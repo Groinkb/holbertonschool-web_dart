@@ -1,4 +1,3 @@
 void main() {
-  var n = 98;
-  print("$n Battery street\n");
+  print("\"Programming is like building a multilingual puzzle\n");
 }
