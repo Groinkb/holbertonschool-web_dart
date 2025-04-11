@@ -1,7 +1,7 @@
 import '4-util.dart';
 import 'dart:convert';
 
-Future<double> calculateTotal() async {
+Future<dynamic> calculateTotal() async {
   try {
     // Get user data and extract ID
     final userData = await fetchUserData();
@@ -22,6 +22,6 @@ Future<double> calculateTotal() async {
 
     return total;
   } catch (error) {
-    return -1;
+    return -1; // Return an integer, not a double, in case of error
   }
 }
