@@ -1,42 +1,44 @@
-class Password {
-  String? _password;
+import '6-password.dart';
 
-  Password({String? password}) : _password = password;
+class User extends Password {
+  int? id;
+  String? name;
+  int? age;
+  double? height;
+  String? user_password;
 
-  // Getter
-  String? get password {
-    return _password;
+  User({this.id, this.name, this.age, this.height, this.user_password}) {
+    super.password = user_password;
   }
 
-  // Setter
-  set password(String? value) {
-    _password = value;
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'name': name, 'age': age, 'height': height};
   }
 
-  bool isValid() {
-    if (_password == null) {
-      return false;
-    }
-
-    // Check length between 8 and 16
-    if (_password!.length < 8 || _password!.length > 16) {
-      return false;
-    }
-
-    // Check for uppercase letters
-    bool hasUppercase = _password!.contains(RegExp(r'[A-Z]'));
-
-    // Check for lowercase letters
-    bool hasLowercase = _password!.contains(RegExp(r'[a-z]'));
-
-    // Check for numbers
-    bool hasNumber = _password!.contains(RegExp(r'[0-9]'));
-
-    return hasUppercase && hasLowercase && hasNumber;
+  static User fromJson(Map<dynamic, dynamic> userJson) {
+    return User(
+        id: userJson['id'],
+        name: userJson['name'],
+        age: userJson['age'],
+        height: userJson['height'],
+        user_password: userJson['user_password']);
   }
 
   @override
   String toString() {
-    return "Your Password is: ${_password ?? ''}";
+    return "User(id : ${id ?? ''} ,name: ${name ?? ''}, age: ${age ?? ''}, height: ${height ?? ''}, Password: ${isValid()})";
+  }
+
+  // Override the getter
+  @override
+  String? get password {
+    return user_password;
+  }
+
+  // Override the setter
+  @override
+  set password(String? value) {
+    user_password = value;
+    super.password = value;
   }
 }
