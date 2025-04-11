@@ -5,10 +5,28 @@ class User extends Password {
   String? name;
   int? age;
   double? height;
-  String? user_password;
+  String? _user_password;
+  Password _passwordValidator = Password();
 
-  User({this.id, this.name, this.age, this.height, this.user_password}) {
-    super.password = user_password;
+  User({this.id, this.name, this.age, this.height, String? user_password}) {
+    _user_password = user_password;
+    _passwordValidator.password = user_password;
+  }
+
+  // Getter for user_password
+  String? get user_password {
+    return _user_password;
+  }
+
+  // Setter for user_password
+  set user_password(String? value) {
+    _user_password = value;
+    _passwordValidator.password = value;
+  }
+
+  @override
+  bool isValid() {
+    return _passwordValidator.isValid();
   }
 
   Map<String, dynamic> toJson() {
@@ -27,18 +45,5 @@ class User extends Password {
   @override
   String toString() {
     return "User(id : ${id ?? ''} ,name: ${name ?? ''}, age: ${age ?? ''}, height: ${height ?? ''}, Password: ${isValid()})";
-  }
-
-  // Override the getter
-  @override
-  String? get password {
-    return user_password;
-  }
-
-  // Override the setter
-  @override
-  set password(String? value) {
-    user_password = value;
-    super.password = value;
   }
 }
