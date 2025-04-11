@@ -1,8 +1,16 @@
 class Password {
-  String _password = '';
+  String _password;
 
-  Password({String password = ''}) {
-    _password = password;
+  Password({required String password}) : _password = password;
+
+  // Getter
+  String get password {
+    return _password;
+  }
+
+  // Setter
+  set password(String value) {
+    _password = value;
   }
 
   bool isValid() {
