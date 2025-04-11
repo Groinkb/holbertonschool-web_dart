@@ -12,15 +12,15 @@ Future<int> calculateTotal() async {
     final ordersJson = await fetchUserOrders(userId);
     final orders = json.decode(ordersJson) as List<dynamic>;
 
-    // Calcsulssate total price
-    double total = 0.0;
+    // Calculate total price
+    int total = 0;
     for (final product in orders) {
       final priceJson = await fetchProductPrice(product);
       final price = json.decode(priceJson);
-      total += price;
+      total += price.toInt();
     }
 
-    return total.toInt();
+    return total;
   } catch (error) {
     return -1;
   }
